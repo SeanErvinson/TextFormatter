@@ -1,0 +1,48 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:TextFormatterUI.Styles">
+
+    <Style x:Key="TextArea" TargetType="{x:Type TextBox}">
+        <Setter Property="Margin" Value="2, 1, 2, 1"/>
+        <Setter Property="AcceptsTab" Value="True"/>
+        <Setter Property="AllowDrop" Value="True"/>
+        <Setter Property="AcceptsReturn" Value="True"/>
+        <Setter Property="FontFamily" Value="{StaticResource OpenSansRegular}"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style x:Key="TextField" TargetType="{x:Type TextBox}">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="{StaticResource OpenSansRegular}"/>
+        <Setter Property="Padding" Value="5"/>
+    </Style>
+
+    <Style x:Key="Label" TargetType="{x:Type TextBox}">
+        <Setter Property="Margin" Value="2,5"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="{StaticResource OpenSansRegular}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <Style x:Key="Header" TargetType="{x:Type Label}">
+        <Setter Property="FontFamily" Value="{StaticResource OpenSansThicc}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="24"/>
+    </Style>
+
+    <Style x:Key="SubHeader" TargetType="{x:Type Label}">
+        <Setter Property="FontFamily" Value="{StaticResource OpenSansRegular}"/>
+        <Setter Property="FontWeight" Value="Regular"/>
+        <Setter Property="FontSize" Value="18"/>
+    </Style>
+
+</ResourceDictionary>

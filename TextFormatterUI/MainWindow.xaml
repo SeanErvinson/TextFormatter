@@ -1,0 +1,168 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TextFormatterUI"
+        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="TextFormatterUI.MainWindow"
+        mc:Ignorable="d" Background="{StaticResource TealBrush}"
+        Title="Text Formatter" MinHeight="700" MinWidth="1200" Height="700" Width="1200">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--Left TextField-->
+        <Border Grid.Column="0" Style="{StaticResource FrameBorder}">
+            <DockPanel>
+                <ToolBar DockPanel.Dock="Top" ToolBarTray.IsLocked="True">
+                    <Button ToolTip="Copy to Clipboard" CommandParameter="{Binding Text, ElementName=InputTextArea}" Command="{Binding CopyToClipboardCommand}">
+                        <Image Source="/Resources/Icons/copy.png" Width="20"/>
+                    </Button>
+                    <Button ToolTip="Save" CommandParameter="{Binding Text, ElementName=InputTextArea}" Command="{Binding SaveCommand}">
+                        <Image Source="/Resources/Icons/save.png" Width="20"/>
+                    </Button>
+                    <Button ToolTip="Load" Command="{Binding LoadCommand}">
+                        <Image Source="/Resources/Icons/open.png" Width="20"/>
+                    </Button>
+                    <Separator/>
+                    <Button ToolTip="Clear" CommandParameter="{Binding Name, ElementName=InputTextArea}" Command="{Binding ClearCommand}">
+                        <Image Source="/Resources/Icons/clear.png" Width="20"/>
+                    </Button>
+                    <Button ToolTip="Parse to an array" Command="{Binding ArrayParseCommand}">
+                        <Image Source="/Resources/Icons/done.png" Width="20"/>
+                    </Button>
+                </ToolBar>
+                <TextBox x:Name="InputTextArea" Style="{StaticResource TextArea}" VerticalScrollBarVisibility="Auto" Text="{Binding InputTextArea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </DockPanel>
+        </Border>
+
+        <!--Controls-->
+        <Border Grid.Column="1" Style="{StaticResource FrameBorder}">
+            <StackPanel VerticalAlignment="Center">
+                <!--Remove Controls-->
+                <Border Style="{StaticResource ControlBorder}" Margin="0, 0, 0, 10">
+                    <StackPanel>
+                        <Button VerticalAlignment="Center" Content="Remove Space" 
+                                Style="{StaticResource MainButton}" 
+                                Command="{Binding RemoveSpacesCommand}"/>
+                        <Button VerticalAlignment="Center" Content="Remove Tab" 
+                                Style="{StaticResource MainButton}"
+                                Command="{Binding RemoveTabsCommand}"/>
+                        <Button VerticalAlignment="Center" Content="Remove Line Break" 
+                                Style="{StaticResource MainButton}"
+                                Command="{Binding RemoveLineBreaksCommand}"/>
+                        <DockPanel LastChildFill="True">
+                            <Button VerticalAlignment="Center" Content="Remove"
+                                    Style="{StaticResource MainButton}"
+                                    Command="{Binding RemoveWordCommand}"/>
+                            <TextBox Style="{StaticResource TextField}" Text="{Binding RemoveTerm}"/>
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource LineBorder}"/>
+
+                <!--Replace Controls-->
+                <Border Style="{StaticResource ControlBorder}">
+                    <StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBox Style="{StaticResource TextField}" Text="{Binding OldWord}"/>
+                            <Button VerticalAlignment="Center" Content="Replace with" 
+                                    Style="{StaticResource MainButton}"
+                                    Command="{Binding ReplaceWordCommand}"/>
+                            <TextBox Style="{StaticResource TextField}" Text="{Binding NewWord}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource LineBorder}"/>
+
+                <!--Text Manipulation-->
+                <Border Style="{StaticResource ControlBorder}">
+                    <StackPanel>
+                        <Button VerticalAlignment="Center" Content="ALL UPPER" 
+                                Style="{StaticResource MainButton}"
+                                Command="{Binding AllUpperCommand}"/>
+                        <Button VerticalAlignment="Center" Content="all lower" 
+                                Style="{StaticResource MainButton}"
+                                Command="{Binding AllLowerCommand}"/>
+                    </StackPanel>
+                </Border>
+
+                <!--Text to Array-->
+                <Border Style="{StaticResource ControlBorder}">
+                    <StackPanel>
+                        <DockPanel>
+                            <TextBox Style="{StaticResource Label}" DockPanel.Dock="Left" Text="To"/>
+                            <TextBox Style="{StaticResource Label}" DockPanel.Dock="Right" Text="Array"/>
+                            <ComboBox Style="{StaticResource Dropdown}" ItemsSource="{Binding ArrayTypeValues}" SelectedItem="{Binding SelectedArrayType}"/>
+                        </DockPanel>
+                        <Button VerticalAlignment="Center" Content="Parse" 
+                                Style="{StaticResource MainButton}"
+                                Command="{Binding ArrayParseCommand}"/>
+                    </StackPanel>
+                </Border>
+
+                <!--Misc Controls-->
+                <Border Style="{StaticResource ControlBorder}">
+                    <StackPanel>
+                        <CheckBox Style="{StaticResource Toggle}" 
+                                  Content="Case Senstive" 
+                                  IsChecked="{Binding IsCaseSensitive}" Margin="0,0,0,5"/>
+                        <CheckBox Style="{StaticResource Toggle}" 
+                                  Content="Persistent" 
+                                  IsChecked="{Binding IsPersistent}"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <!--Right TextField-->
+        <Border Grid.Column="2" Style="{StaticResource FrameBorder}">
+            <DockPanel>
+                <ToolBar DockPanel.Dock="Top" ToolBarTray.IsLocked="True">
+                    <Button ToolTip="Copy to Clipboard" CommandParameter="{Binding Text, ElementName=OutputTextArea}" Command="{Binding CopyToClipboardCommand}">
+                        <Image Source="/Resources/Icons/copy.png" Width="20"/>
+                    </Button>
+                    <Button ToolTip="Save" CommandParameter="{Binding Text, ElementName=OutputTextArea}" Command="{Binding SaveCommand}">
+                        <Image Source="/Resources/Icons/save.png" Width="20"/>
+                    </Button>
+                    <Separator/>
+                    <Button ToolTip="Clear" CommandParameter="{Binding Name, ElementName=OutputTextArea}" Command="{Binding ClearCommand}">
+                        <Image Source="/Resources/Icons/clear.png" Width="20"/>
+                    </Button>
+                </ToolBar>
+                <TextBox x:Name="OutputTextArea" Style="{StaticResource TextArea}" Text="{Binding OutputTextArea}"/>
+            </DockPanel>
+        </Border>
+        
+        <!--Status-->
+        <StatusBar Grid.ColumnSpan="3" Grid.Row="1" Background="{StaticResource DarkBlueBrush}">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="2">
+                <Button Style="{StaticResource ImageButton}" Command="{Binding AboutCommand}" Width="22">
+                    <Image Source="/Resources/Icons/person.png"/>
+                </Button>
+            </StatusBarItem>
+        </StatusBar>
+
+    </Grid>
+</Window>
