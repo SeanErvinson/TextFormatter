@@ -3,12 +3,12 @@
 This software helps format unformatted text. It also has all the basic functionality of a typical text formatter.
 
 ## **Features includes**
-* ### Remove tabs
-* ### Remove White space
-* ###  Remove New line
-* ###  Remove specific word/char
-* ###  Replace specific word/char with a specific word/char
-* ###  **Convert unformatted string into an array friendly format**
+* Remove tabs
+* Remove White space
+* Remove New line
+* Remove specific word/char
+* Replace specific word/char with a specific word/char
+* **Convert unformatted string into an array friendly format** [The reason why I made this program]
 
 # Future Plan
 - [ ] Build a web application version
