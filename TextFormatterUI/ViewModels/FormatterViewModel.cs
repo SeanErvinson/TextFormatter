@@ -35,9 +35,9 @@ namespace TextFormatterUI
         public bool IsPersistent { get; set; } = false;
 
         /// <summary>
-        /// Word/Char to be removed
+        /// Value to be removed
         /// </summary>
-        public string RemoveTerm { get; set; } = null;
+        public string RemoveValue { get; set; } = null;
 
         /// <summary>
         /// The type of the desired output array
@@ -58,7 +58,7 @@ namespace TextFormatterUI
         /// Enumerable of the array types
         /// </summary>
         public IEnumerable<ArrayType> ArrayTypeValues { get { return Enum.GetValues(typeof(ArrayType)).Cast<ArrayType>(); } }
-        
+
         #endregion
 
         #region Private Commands
@@ -126,7 +126,7 @@ namespace TextFormatterUI
         /// Open a about window
         /// </summary>
         private ICommand _aboutCommand;
-        
+
         #endregion
 
         #region Public Commands
@@ -135,10 +135,7 @@ namespace TextFormatterUI
         /// </summary>
         public ICommand CopyToClipboardCommand
         {
-            get
-            {
-                return _copyToClipboardCommand ?? (_copyToClipboardCommand = new RelayCommand(param => CopyClipboard(param)));
-            }
+            get { return _copyToClipboardCommand ?? (_copyToClipboardCommand = new RelayCommand(param => CopyClipboard(param))); }
         }
 
         /// <summary>
@@ -146,10 +143,7 @@ namespace TextFormatterUI
         /// </summary>
         public ICommand SaveCommand
         {
-            get
-            {
-                return _saveCommand ?? (_saveCommand = new RelayCommand(param => SaveFile(param)));
-            }
+            get { return _saveCommand ?? (_saveCommand = new RelayCommand(param => SaveFile(param))); }
         }
 
         /// <summary>
@@ -157,10 +151,7 @@ namespace TextFormatterUI
         /// </summary>
         public ICommand LoadCommand
         {
-            get
-            {
-                return _loadCommand ?? (_loadCommand = new RelayCommand(param => LoadFile()));
-            }
+            get { return _loadCommand ?? (_loadCommand = new RelayCommand(param => LoadFile())); }
         }
 
         /// <summary>
@@ -168,10 +159,7 @@ namespace TextFormatterUI
         /// </summary>
         public ICommand ClearCommand
         {
-            get
-            {
-                return _clearCommand ?? (_clearCommand = new RelayCommand(param => ClearText(param)));
-            }
+            get { return _clearCommand ?? (_clearCommand = new RelayCommand(param => ClearText(param))); }
         }
 
         /// <summary>
@@ -179,10 +167,7 @@ namespace TextFormatterUI
         /// </summary>
         public ICommand RemoveSpacesCommand
         {
-            get
-            {
-                return _removeSpaceCommand ?? (_removeSpaceCommand = new RelayCommand(param => RemoveSpaces()));
-            }
+            get { return _removeSpaceCommand ?? (_removeSpaceCommand = new RelayCommand(param => RemoveSpaces())); }
         }
 
         /// <summary>
@@ -190,10 +175,7 @@ namespace TextFormatterUI
         /// </summary>
         public ICommand RemoveTabsCommand
         {
-            get
-            {
-                return _removeTabsCommand ?? (_removeTabsCommand = new RelayCommand(param => RemoveTabs()));
-            }
+            get { return _removeTabsCommand ?? (_removeTabsCommand = new RelayCommand(param => RemoveTabs())); }
         }
 
         /// <summary>
@@ -201,10 +183,7 @@ namespace TextFormatterUI
         /// </summary>
         public ICommand RemoveLineBreaksCommand
         {
-            get
-            {
-                return _removeLineBreaksCommand ?? (_removeLineBreaksCommand = new RelayCommand(param => RemoveLineBreaks()));
-            }
+            get { return _removeLineBreaksCommand ?? (_removeLineBreaksCommand = new RelayCommand(param => RemoveLineBreaks())); }
         }
 
         /// <summary>
@@ -212,10 +191,7 @@ namespace TextFormatterUI
         /// </summary>
         public ICommand AllUpperCommand
         {
-            get
-            {
-                return _allUpperCommand ?? (_allUpperCommand = new RelayCommand(param => ToUpper()));
-            }
+            get { return _allUpperCommand ?? (_allUpperCommand = new RelayCommand(param => ToUpper())); }
         }
 
         /// <summary>
@@ -223,10 +199,7 @@ namespace TextFormatterUI
         /// </summary>
         public ICommand AllLowerCommand
         {
-            get
-            {
-                return _allLowerCommand ?? (_allLowerCommand = new RelayCommand(param => ToLower()));
-            }
+            get { return _allLowerCommand ?? (_allLowerCommand = new RelayCommand(param => ToLower())); }
         }
 
         /// <summary>
@@ -234,10 +207,7 @@ namespace TextFormatterUI
         /// </summary>
         public ICommand RemoveWordCommand
         {
-            get
-            {
-                return _removeWordCommand ?? (_removeWordCommand = new RelayCommand(param => RemoveWord()));
-            }
+            get { return _removeWordCommand ?? (_removeWordCommand = new RelayCommand(param => RemoveWord())); }
         }
 
         /// <summary>
@@ -245,10 +215,7 @@ namespace TextFormatterUI
         /// </summary>
         public ICommand ReplaceWordCommand
         {
-            get
-            {
-                return _replaceWordCommand ?? (_replaceWordCommand = new RelayCommand(param => ReplaceWord()));
-            }
+            get { return _replaceWordCommand ?? (_replaceWordCommand = new RelayCommand(param => ReplaceWord())); }
         }
 
         /// <summary>
@@ -277,7 +244,7 @@ namespace TextFormatterUI
         /// <param name="parameter">Which textarea to be cleared base on the name of the textbox (needs to be improved)</param>
         private void ClearText(object parameter)
         {
-            if(parameter as string == nameof(InputTextArea))
+            if (parameter as string == nameof(InputTextArea))
             {
                 InputTextArea = string.Empty;
                 OnPropertyChanged("InputTextArea");
@@ -295,16 +262,18 @@ namespace TextFormatterUI
         /// <param name="parameter">Which textarea is to be saved</param>
         private void SaveFile(object parameter)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Text file (*.txt)|*.txt|All Files|*.*";
-            saveFileDialog.Title = "Please select a location to save";
-            saveFileDialog.DefaultExt = "txt";
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Text file (*.txt)|*.txt|All Files|*.*",
+                Title = "Please select a location to save",
+                DefaultExt = "txt"
+            };
 
             string textContent = parameter as string;
 
             if (saveFileDialog.ShowDialog() == true)
             {
-                File.WriteAllText(saveFileDialog.FileName, (string)textContent);
+                File.WriteAllText(saveFileDialog.FileName, textContent);
             }
         }
 
@@ -323,25 +292,27 @@ namespace TextFormatterUI
         /// </summary>
         private void LoadFile()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Text file (*.txt)|*.txt|All Files|*.*";
-            openFileDialog.Title = "Open a text file";
-            openFileDialog.DefaultExt = "txt";
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Text file (*.txt)|*.txt|All Files|*.*",
+                Title = "Open a text file",
+                DefaultExt = "txt"
+            };
 
-            if(openFileDialog.ShowDialog() == true)
+            if (openFileDialog.ShowDialog() == true)
             {
                 StringBuilder stringBuilder = new StringBuilder();
                 var file = openFileDialog.OpenFile();
                 string line;
                 using (var fileStream = new StreamReader(file))
                 {
-                    while((line = fileStream.ReadLine()) != null)
+                    while ((line = fileStream.ReadLine()) != null)
                     {
                         stringBuilder.AppendLine(line);
                     }
-                    InputTextArea = stringBuilder.ToString();
-                    OnPropertyChanged("InputTextArea");
                 }
+                InputTextArea = stringBuilder.ToString();
+                OnPropertyChanged("InputTextArea");
             }
         }
 
@@ -352,11 +323,7 @@ namespace TextFormatterUI
         {
             OutputTextArea = StringManipulate.Replace(InputTextArea, " ", string.Empty);
             OnPropertyChanged("OutputTextArea");
-            if (IsPersistent && OutputTextArea != null)
-            {
-                InputTextArea = OutputTextArea;
-                OnPropertyChanged("InputTextArea");
-            }
+            UpdatePersistency();
         }
 
         /// <summary>
@@ -366,11 +333,7 @@ namespace TextFormatterUI
         {
             OutputTextArea = StringManipulate.Replace(InputTextArea, "\t", string.Empty);
             OnPropertyChanged("OutputTextArea");
-            if (IsPersistent && OutputTextArea != null)
-            {
-                InputTextArea = OutputTextArea;
-                OnPropertyChanged("InputTextArea");
-            }
+            UpdatePersistency();
         }
 
         /// <summary>
@@ -380,11 +343,7 @@ namespace TextFormatterUI
         {
             OutputTextArea = StringManipulate.Replace(InputTextArea, "\r?\n|\r", string.Empty);
             OnPropertyChanged("OutputTextArea");
-            if (IsPersistent && OutputTextArea != null)
-            {
-                InputTextArea = OutputTextArea;
-                OnPropertyChanged("InputTextArea");
-            }
+            UpdatePersistency();
         }
 
         /// <summary>
@@ -396,11 +355,7 @@ namespace TextFormatterUI
                 return;
             OutputTextArea = InputTextArea.ToUpper();
             OnPropertyChanged("OutputTextArea");
-            if (IsPersistent && OutputTextArea != null)
-            {
-                InputTextArea = OutputTextArea;
-                OnPropertyChanged("InputTextArea");
-            }
+            UpdatePersistency();
         }
 
         /// <summary>
@@ -412,11 +367,7 @@ namespace TextFormatterUI
                 return;
             OutputTextArea = InputTextArea.ToLower();
             OnPropertyChanged("OutputTextArea");
-            if (IsPersistent && OutputTextArea != null)
-            {
-                InputTextArea = OutputTextArea;
-                OnPropertyChanged("InputTextArea");
-            }
+            UpdatePersistency();
         }
 
         /// <summary>
@@ -424,13 +375,9 @@ namespace TextFormatterUI
         /// </summary>
         private void RemoveWord()
         {
-            OutputTextArea = StringManipulate.Replace(InputTextArea, RemoveTerm, string.Empty, IsCaseSensitive);
+            OutputTextArea = StringManipulate.Replace(InputTextArea, RemoveValue, string.Empty, IsCaseSensitive);
             OnPropertyChanged("OutputTextArea");
-            if (IsPersistent && OutputTextArea != null)
-            {
-                InputTextArea = OutputTextArea;
-                OnPropertyChanged("InputTextArea");
-            }
+            UpdatePersistency();
         }
 
         /// <summary>
@@ -440,11 +387,7 @@ namespace TextFormatterUI
         {
             OutputTextArea = StringManipulate.Replace(InputTextArea, OldWord, NewWord, IsCaseSensitive);
             OnPropertyChanged("OutputTextArea");
-            if (IsPersistent && OutputTextArea != null)
-            {
-                InputTextArea = OutputTextArea;
-                OnPropertyChanged("InputTextArea");
-            }
+            UpdatePersistency();
         }
 
         /// <summary>
@@ -454,11 +397,7 @@ namespace TextFormatterUI
         {
             OutputTextArea = StringManipulate.ArrayFormat(InputTextArea, SelectedArrayType);
             OnPropertyChanged("OutputTextArea");
-            if (IsPersistent && OutputTextArea != null)
-            {
-                InputTextArea = OutputTextArea;
-                OnPropertyChanged("InputTextArea");
-            }
+            UpdatePersistency();
         }
 
         /// <summary>
@@ -473,7 +412,18 @@ namespace TextFormatterUI
             aboutWindow.ShowDialog();
         }
 
-       
+        /// <summary>
+        /// Notifies the output text to be the input text
+        /// </summary>
+        private void UpdatePersistency()
+        {
+            if (IsPersistent && OutputTextArea != null)
+            {
+                InputTextArea = OutputTextArea;
+                OnPropertyChanged("InputTextArea");
+            }
+        }
+
 
         #endregion
 

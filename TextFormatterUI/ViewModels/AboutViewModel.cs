@@ -13,7 +13,6 @@ namespace TextFormatterUI
         private ICommand _twitterCommand;
         private ICommand _githubCommand;
         private ICommand _linkedinCommand;
-        private ICommand _facebookCommand;
 
         public ICommand TwitterCommand
         {
@@ -38,12 +37,5 @@ namespace TextFormatterUI
                 return _linkedinCommand ?? (_linkedinCommand = new RelayCommand(param => SocialLinks.Linkedin()));
             }
         }
-
-
-        public ICommand FacebookCommand
-        {
-            get { return _facebookCommand; }
-        }
-
     }
 }

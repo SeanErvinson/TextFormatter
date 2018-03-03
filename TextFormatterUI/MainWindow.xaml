@@ -63,7 +63,7 @@
                             <Button VerticalAlignment="Center" Content="Remove"
                                     Style="{StaticResource MainButton}"
                                     Command="{Binding RemoveWordCommand}"/>
-                            <TextBox Style="{StaticResource TextField}" Text="{Binding RemoveTerm}"/>
+                            <TextBox Style="{StaticResource TextField}" Text="{Binding RemoveValue}"/>
                         </DockPanel>
                     </StackPanel>
                 </Border>

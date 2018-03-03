@@ -19,9 +19,8 @@ namespace StringManipulation
         {
             if (string.IsNullOrEmpty(content))
                 return null;
-            if (replacement == null)
-                return string.Empty;
-            string pattern = $"({patternKey})+";
+            string pattern = $"({patternKey})";
+            replacement = replacement ?? string.Empty;
             if (caseSensitive)
                 return Regex.Replace(content, pattern, replacement);
             else

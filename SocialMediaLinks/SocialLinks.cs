@@ -9,11 +9,6 @@ namespace SocialMediaLinks
         private static string linkedinLink = @"www.linkedin.com/in/sean-ervinson-ong-2550b3127";
         private static string githubLink = @"https://github.com/SeanErvinson";
 
-        //public static void Facebook()
-        //{
-        //    ExecuteLinks("")
-        //}
-
         public static void Twitter()
         {
             ExecuteLinks(twitterLink);
