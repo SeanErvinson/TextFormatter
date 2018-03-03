@@ -392,6 +392,8 @@ namespace TextFormatterUI
         /// </summary>
         private void ToUpper()
         {
+            if (string.IsNullOrEmpty(InputTextArea))
+                return;
             OutputTextArea = InputTextArea.ToUpper();
             OnPropertyChanged("OutputTextArea");
             if (IsPersistent && OutputTextArea != null)
@@ -406,6 +408,8 @@ namespace TextFormatterUI
         /// </summary>
         private void ToLower()
         {
+            if (string.IsNullOrEmpty(InputTextArea))
+                return;
             OutputTextArea = InputTextArea.ToLower();
             OnPropertyChanged("OutputTextArea");
             if (IsPersistent && OutputTextArea != null)
@@ -468,6 +472,8 @@ namespace TextFormatterUI
             };
             aboutWindow.ShowDialog();
         }
+
+       
 
         #endregion
 
