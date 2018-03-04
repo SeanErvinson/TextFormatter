@@ -159,9 +159,7 @@
       <Name>StringManipulation</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\Icons\mail.png" />
     <Resource Include="Resources\Icons\person.png" />
