@@ -12,46 +12,122 @@ namespace TextFormatterUI
 {
     class FormatterViewModel : BaseViewModel
     {
-        #region Public Properties
+        #region Private Properties
+
         /// <summary>
         /// The input text area
         /// </summary>
-        public string InputTextArea { get; set; }
+        private string _inputTextArea;
 
         /// <summary>
         /// The output text area
         /// </summary>
-        public string OutputTextArea { get; set; }
+        private string _outputTextArea;
 
         /// <summary>
         /// State of case sensitivity
         /// </summary>
-        public bool IsCaseSensitive { get; set; } = false;
+        private bool _isCaseSensitive = false;
 
         /// <summary>
         /// State of persistency
         /// </summary>
-        public bool IsPersistent { get; set; } = false;
+        private bool _isPersistent = false;
 
         /// <summary>
         /// Value to be removed
         /// </summary>
-        public string RemoveValue { get; set; } = null;
+        private string _removeValue = null;
 
         /// <summary>
         /// The type of the desired output array
         /// </summary>
-        public ArrayType SelectedArrayType { get; set; }
+        private ArrayType _selectedArrayType;
 
         /// <summary>
         /// The string to replace all occurrences of OldWord.
         /// </summary>
-        public string NewWord { get; set; } = null;
+        private string _newWord;
 
         /// <summary>
         /// The string to be replaced.
         /// </summary>
-        public string OldWord { get; set; } = null;
+        private string _oldWord;
+
+        #endregion
+
+        #region Public Properties
+        /// <summary>
+        /// The input text area
+        /// </summary>
+        public string InputTextArea
+        {
+            get { return _inputTextArea; }
+            set { SetField(ref _inputTextArea, value, nameof(InputTextArea)); }
+        }
+
+        /// <summary>
+        /// The output text area
+        /// </summary>
+        public string OutputTextArea
+        {
+            get { return _outputTextArea; }
+            set { SetField(ref _outputTextArea, value, nameof(OutputTextArea)); }
+        }
+
+        /// <summary>
+        /// State of case sensitivity
+        /// </summary>
+        public bool IsCaseSensitive
+        {
+            get { return _isCaseSensitive; }
+            set { SetField(ref _isCaseSensitive, value, nameof(IsCaseSensitive)); }
+        }
+
+        /// <summary>
+        /// State of persistency
+        /// </summary>
+        public bool IsPersistent
+        {
+            get { return _isPersistent; }
+            set { SetField(ref _isPersistent, value, nameof(IsPersistent)); }
+        }
+
+        /// <summary>
+        /// Value to be removed
+        /// </summary>
+        public string RemoveValue
+        {
+            get { return _removeValue; }
+            set { SetField(ref _removeValue, value, nameof(RemoveValue)); }
+        }
+
+        /// <summary>
+        /// The type of the desired output array
+        /// </summary>
+        public ArrayType SelectedArrayType
+        {
+            get { return _selectedArrayType; }
+            set { SetField(ref _selectedArrayType, value, nameof(SelectedArrayType)); }
+        }
+
+        /// <summary>
+        /// The string to replace all occurrences of OldWord.
+        /// </summary>
+        public string NewWord
+        {
+            get { return _newWord; }
+            set { SetField(ref _newWord, value, nameof(NewWord)); }
+        }
+
+        /// <summary>
+        /// The string to be replaced.
+        /// </summary>
+        public string OldWord
+        {
+            get { return _oldWord; }
+            set { SetField(ref _oldWord, value, nameof(OldWord)); }
+        }
 
         /// <summary>
         /// Enumerable of the array types
@@ -244,15 +320,9 @@ namespace TextFormatterUI
         private void ClearText(object parameter)
         {
             if (parameter as string == nameof(InputTextArea))
-            {
                 InputTextArea = string.Empty;
-                OnPropertyChanged("InputTextArea");
-            }
             else
-            {
                 OutputTextArea = string.Empty;
-                OnPropertyChanged("OutputTextArea");
-            }
         }
 
         /// <summary>
@@ -271,9 +341,7 @@ namespace TextFormatterUI
             string textContent = parameter as string;
 
             if (saveFileDialog.ShowDialog() == true)
-            {
                 File.WriteAllText(saveFileDialog.FileName, textContent);
-            }
         }
 
         /// <summary>
@@ -311,7 +379,6 @@ namespace TextFormatterUI
                     }
                 }
                 InputTextArea = stringBuilder.ToString();
-                OnPropertyChanged("InputTextArea");
             }
         }
 
@@ -321,7 +388,6 @@ namespace TextFormatterUI
         private void RemoveSpaces()
         {
             OutputTextArea = StringManipulate.Replace(InputTextArea, " ", string.Empty);
-            OnPropertyChanged("OutputTextArea");
             UpdatePersistency();
         }
 
@@ -331,7 +397,6 @@ namespace TextFormatterUI
         private void RemoveTabs()
         {
             OutputTextArea = StringManipulate.Replace(InputTextArea, "\t", string.Empty);
-            OnPropertyChanged("OutputTextArea");
             UpdatePersistency();
         }
 
@@ -341,7 +406,6 @@ namespace TextFormatterUI
         private void RemoveLineBreaks()
         {
             OutputTextArea = StringManipulate.Replace(InputTextArea, "\r?\n|\r", string.Empty);
-            OnPropertyChanged("OutputTextArea");
             UpdatePersistency();
         }
 
@@ -353,7 +417,6 @@ namespace TextFormatterUI
             if (string.IsNullOrEmpty(InputTextArea))
                 return;
             OutputTextArea = InputTextArea.ToUpper();
-            OnPropertyChanged("OutputTextArea");
             UpdatePersistency();
         }
 
@@ -365,7 +428,6 @@ namespace TextFormatterUI
             if (string.IsNullOrEmpty(InputTextArea))
                 return;
             OutputTextArea = InputTextArea.ToLower();
-            OnPropertyChanged("OutputTextArea");
             UpdatePersistency();
         }
 
@@ -375,7 +437,6 @@ namespace TextFormatterUI
         private void RemoveWord()
         {
             OutputTextArea = StringManipulate.Replace(InputTextArea, RemoveValue, string.Empty, IsCaseSensitive);
-            OnPropertyChanged("OutputTextArea");
             UpdatePersistency();
         }
 
@@ -385,7 +446,6 @@ namespace TextFormatterUI
         private void ReplaceWord()
         {
             OutputTextArea = StringManipulate.Replace(InputTextArea, OldWord, NewWord, IsCaseSensitive);
-            OnPropertyChanged("OutputTextArea");
             UpdatePersistency();
         }
 
@@ -395,7 +455,6 @@ namespace TextFormatterUI
         private void ParseArray()
         {
             OutputTextArea = StringManipulate.ArrayFormat(InputTextArea, SelectedArrayType);
-            OnPropertyChanged("OutputTextArea");
             UpdatePersistency();
         }
 
@@ -416,13 +475,9 @@ namespace TextFormatterUI
         /// </summary>
         private void UpdatePersistency()
         {
-            if (IsPersistent && OutputTextArea != null)
-            {
+            if (IsPersistent && OutputTextArea != null) 
                 InputTextArea = OutputTextArea;
-                OnPropertyChanged("InputTextArea");
-            }
         }
-
 
         #endregion
 

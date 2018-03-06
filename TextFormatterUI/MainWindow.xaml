@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TextFormatterUI"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="TextFormatterUI.MainWindow"
-        mc:Ignorable="d" Background="{StaticResource TealBrush}"
+        mc:Ignorable="d" Background="{DynamicResource BackgroundColorBrush}"
         Title="Text Formatter" MinHeight="700" MinWidth="1200" Height="700" Width="1200">
 
     <Grid>
@@ -100,8 +100,8 @@
                 <Border Style="{StaticResource ControlBorder}">
                     <StackPanel>
                         <DockPanel>
-                            <TextBox Style="{StaticResource Label}" DockPanel.Dock="Left" Text="To"/>
-                            <TextBox Style="{StaticResource Label}" DockPanel.Dock="Right" Text="Array"/>
+                            <TextBlock Style="{StaticResource TextLabel}" DockPanel.Dock="Left" Text="To"/>
+                            <TextBlock Style="{StaticResource TextLabel}" DockPanel.Dock="Right" Text="Array"/>
                             <ComboBox Style="{StaticResource Dropdown}" ItemsSource="{Binding ArrayTypeValues}" SelectedItem="{Binding SelectedArrayType}"/>
                         </DockPanel>
                         <Button VerticalAlignment="Center" Content="Parse" 
@@ -144,7 +144,7 @@
         </Border>
         
         <!--Status-->
-        <StatusBar Grid.ColumnSpan="3" Grid.Row="1" Background="{StaticResource DarkBlueBrush}">
+        <StatusBar Grid.ColumnSpan="3" Grid.Row="1" Background="{StaticResource StatusBar}">
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid>
