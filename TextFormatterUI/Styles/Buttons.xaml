@@ -8,8 +8,8 @@
         <Setter Property="Padding" Value="20,5,20,5"/>
         <Setter Property="Margin" Value="8, 12"/>
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="BorderBrush" Value="White"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColorBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource WhiteBrush}"/>
         <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -27,13 +27,13 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="Background" Value="White"/>
-                            <Setter Property="Foreground" Value="{StaticResource TealBrush}"/>
+                            <Setter Property="Foreground" Value="{StaticResource BackgroundColorBrush}"/>
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <ColorAnimation Duration="0:0:0.1"
                                           Storyboard.TargetProperty="Background.Color"
-                                          To="White"/> 
+                                          To="{StaticResource AlternativeTextColor}"/> 
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
@@ -42,7 +42,7 @@
                                     <Storyboard>
                                         <ColorAnimation Duration="0:0:0.1"
                                           Storyboard.TargetProperty="Background.Color"
-                                          To="{StaticResource Teal}" />           
+                                          To="Transparent"/>           
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.ExitActions>
