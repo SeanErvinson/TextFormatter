@@ -1,7 +1,8 @@
 ﻿using System.Windows.Input;
-using SocialMediaLinks;
+using TextFormatter.Models;
+using TextFormatter.WPF.ViewModels.Base;
 
-namespace TextFormatterUI
+namespace TextFormatter.WPF
 {
     class AboutViewModel : BaseViewModel
     {

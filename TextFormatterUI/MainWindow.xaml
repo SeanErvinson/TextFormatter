@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TextFormatterUI"
-        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="TextFormatterUI.MainWindow"
+        xmlns:local="clr-namespace:TextFormatter.WPF"
+        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="TextFormatter.WPF.MainWindow"
         mc:Ignorable="d" Background="{DynamicResource BackgroundColorBrush}"
-        Title="Text Formatter" MinHeight="700" MinWidth="1200" Height="700" Width="1200">
+        Title="Text Formatter" MinHeight="730" MinWidth="1200" Height="730" Width="1200">
 
     <Grid>
         <Grid.ColumnDefinitions>

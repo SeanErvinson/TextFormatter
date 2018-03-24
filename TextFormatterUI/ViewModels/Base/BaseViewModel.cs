@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace TextFormatterUI
+namespace TextFormatter.WPF.ViewModels.Base
 {
     class BaseViewModel : INotifyPropertyChanged
     {

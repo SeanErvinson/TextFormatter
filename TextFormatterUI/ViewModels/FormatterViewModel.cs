@@ -6,9 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
-using StringManipulation;
+using System.Threading.Tasks;
+using TextFormatter.Models.TextManipulate;
+using TextFormatter.WPF.ViewModels.Base;
 
-namespace TextFormatterUI
+namespace TextFormatter.WPF
 {
     class FormatterViewModel : BaseViewModel
     {
@@ -42,7 +44,7 @@ namespace TextFormatterUI
         /// <summary>
         /// The type of the desired output array
         /// </summary>
-        private ArrayType _selectedArrayType;
+        private ArrayFormat _selectedArrayType;
 
         /// <summary>
         /// The string to replace all occurrences of OldWord.
@@ -54,6 +56,11 @@ namespace TextFormatterUI
         /// </summary>
         private string _oldWord;
 
+        /// <summary>
+        /// Temporary text container
+        /// </summary>
+        private string _tempText;
+
         #endregion
 
         #region Public Properties
@@ -63,7 +70,11 @@ namespace TextFormatterUI
         public string InputTextArea
         {
             get { return _inputTextArea; }
-            set { SetField(ref _inputTextArea, value, nameof(InputTextArea)); }
+            set
+            {
+                SetField(ref _inputTextArea, value, nameof(InputTextArea));
+                _tempText = InputTextArea;
+            }
         }
 
         /// <summary>
@@ -105,7 +116,7 @@ namespace TextFormatterUI
         /// <summary>
         /// The type of the desired output array
         /// </summary>
-        public ArrayType SelectedArrayType
+        public ArrayFormat SelectedArrayType
         {
             get { return _selectedArrayType; }
             set { SetField(ref _selectedArrayType, value, nameof(SelectedArrayType)); }
@@ -132,7 +143,7 @@ namespace TextFormatterUI
         /// <summary>
         /// Enumerable of the array types
         /// </summary>
-        public IEnumerable<ArrayType> ArrayTypeValues { get { return Enum.GetValues(typeof(ArrayType)).Cast<ArrayType>(); } }
+        public IEnumerable<ArrayFormat> ArrayTypeValues { get { return Enum.GetValues(typeof(ArrayFormat)).Cast<ArrayFormat>(); } }
 
         #endregion
 
@@ -226,7 +237,7 @@ namespace TextFormatterUI
         /// </summary>
         public ICommand LoadCommand
         {
-            get { return _loadCommand ?? (_loadCommand = new RelayCommand(param => LoadFile())); }
+            get { return _loadCommand ?? (_loadCommand = new AsyncRelayCommand(() => LoadFileAsync())); }
         }
 
         /// <summary>
@@ -242,15 +253,15 @@ namespace TextFormatterUI
         /// </summary>
         public ICommand RemoveSpacesCommand
         {
-            get { return _removeSpaceCommand ?? (_removeSpaceCommand = new RelayCommand(param => RemoveSpaces())); }
+            get { return _removeSpaceCommand ?? (_removeSpaceCommand = new AsyncRelayCommand(() => RemoveAsync(@" "))); }
         }
 
         /// <summary>
         /// Remove all tabs on the textarea
         /// </summary>
-        public ICommand RemoveTabsCommand
+        public ICommand RemoveTabsCommand   
         {
-            get { return _removeTabsCommand ?? (_removeTabsCommand = new RelayCommand(param => RemoveTabs())); }
+            get { return _removeTabsCommand ?? (_removeTabsCommand = new AsyncRelayCommand(() => RemoveAsync(@"\t"))); }
         }
 
         /// <summary>
@@ -258,7 +269,7 @@ namespace TextFormatterUI
         /// </summary>
         public ICommand RemoveLineBreaksCommand
         {
-            get { return _removeLineBreaksCommand ?? (_removeLineBreaksCommand = new RelayCommand(param => RemoveLineBreaks())); }
+            get { return _removeLineBreaksCommand ?? (_removeLineBreaksCommand = new AsyncRelayCommand(() => RemoveAsync(@"\r\n?|\n"))); }
         }
 
         /// <summary>
@@ -266,7 +277,7 @@ namespace TextFormatterUI
         /// </summary>
         public ICommand AllUpperCommand
         {
-            get { return _allUpperCommand ?? (_allUpperCommand = new RelayCommand(param => ToUpper())); }
+            get { return _allUpperCommand ?? (_allUpperCommand = new AsyncRelayCommand(() => ChangeLetterCaseAsync(LetterCase.Upper))); }
         }
 
         /// <summary>
@@ -274,7 +285,7 @@ namespace TextFormatterUI
         /// </summary>
         public ICommand AllLowerCommand
         {
-            get { return _allLowerCommand ?? (_allLowerCommand = new RelayCommand(param => ToLower())); }
+            get { return _allLowerCommand ?? (_allLowerCommand = new AsyncRelayCommand(() => ChangeLetterCaseAsync(LetterCase.Lower))); }
         }
 
         /// <summary>
@@ -282,7 +293,7 @@ namespace TextFormatterUI
         /// </summary>
         public ICommand RemoveWordCommand
         {
-            get { return _removeWordCommand ?? (_removeWordCommand = new RelayCommand(param => RemoveWord())); }
+            get { return _removeWordCommand ?? (_removeWordCommand = new AsyncRelayCommand(() => RemoveAsync(RemoveValue, caseSensitive: IsCaseSensitive))); }
         }
 
         /// <summary>
@@ -290,7 +301,7 @@ namespace TextFormatterUI
         /// </summary>
         public ICommand ReplaceWordCommand
         {
-            get { return _replaceWordCommand ?? (_replaceWordCommand = new RelayCommand(param => ReplaceWord())); }
+            get { return _replaceWordCommand ?? (_replaceWordCommand = new AsyncRelayCommand(() => RemoveAsync(OldWord, NewWord, IsCaseSensitive))); }
         }
 
         /// <summary>
@@ -298,7 +309,7 @@ namespace TextFormatterUI
         /// </summary>
         public ICommand ArrayParseCommand
         {
-            get { return _arrayParseCommand ?? (_arrayParseCommand = new RelayCommand(param => ParseArray())); }
+            get { return _arrayParseCommand ?? (_arrayParseCommand = new AsyncRelayCommand(() => ParseArrayAsync())); }
         }
 
         /// <summary>
@@ -323,6 +334,7 @@ namespace TextFormatterUI
                 InputTextArea = string.Empty;
             else
                 OutputTextArea = string.Empty;
+            _tempText = InputTextArea;
         }
 
         /// <summary>
@@ -357,11 +369,11 @@ namespace TextFormatterUI
         /// <summary>
         /// Load a text file to the input textarea
         /// </summary>
-        private void LoadFile()
+        private async Task LoadFileAsync()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                Filter = "Text file (*.txt)|*.txt|All Files|*.*",
+                Filter = "Text file |*.txt;*.json;*.xml;*.rtf|All Files|*.*",
                 Title = "Open a text file",
                 DefaultExt = "txt"
             };
@@ -370,91 +382,57 @@ namespace TextFormatterUI
             {
                 StringBuilder stringBuilder = new StringBuilder();
                 var file = openFileDialog.OpenFile();
-                string line;
                 using (var fileStream = new StreamReader(file))
                 {
-                    while ((line = fileStream.ReadLine()) != null)
-                    {
+                    string line;
+                    while((line = await fileStream.ReadLineAsync()) != null)
                         stringBuilder.AppendLine(line);
-                    }
+
+                    InputTextArea = stringBuilder.ToString();
                 }
-                InputTextArea = stringBuilder.ToString();
             }
         }
 
         /// <summary>
-        /// Remove all the spaces
+        /// Convert string to Lower or Upper case
         /// </summary>
-        private void RemoveSpaces()
-        {
-            OutputTextArea = StringManipulate.Replace(InputTextArea, " ", string.Empty);
-            UpdatePersistency();
-        }
-
-        /// <summary>
-        /// Remove all the tabs
-        /// </summary>
-        private void RemoveTabs()
-        {
-            OutputTextArea = StringManipulate.Replace(InputTextArea, "\t", string.Empty);
-            UpdatePersistency();
-        }
-
-        /// <summary>
-        /// Remove all the linebreak
-        /// </summary>
-        private void RemoveLineBreaks()
-        {
-            OutputTextArea = StringManipulate.Replace(InputTextArea, "\r?\n|\r", string.Empty);
-            UpdatePersistency();
-        }
-
-        /// <summary>
-        /// Convert string to Uppercase
-        /// </summary>
-        private void ToUpper()
+        /// <param name="caseType">The type of letter case</param>
+        /// <returns></returns>
+        public async Task ChangeLetterCaseAsync(LetterCase caseType)
         {
             if (string.IsNullOrEmpty(InputTextArea))
                 return;
-            OutputTextArea = InputTextArea.ToUpper();
+            switch (caseType)
+            {
+                case LetterCase.Upper:
+                    OutputTextArea = await Task.Run(() => _tempText.ToUpper());
+                    break;
+                case LetterCase.Lower:
+                    OutputTextArea = await Task.Run(() => _tempText.ToLower());
+                    break;
+            }
             UpdatePersistency();
         }
 
         /// <summary>
-        /// Convert string to Lowercase
+        /// Replace specific character with given replacement
         /// </summary>
-        private void ToLower()
+        /// <param name="pattern">Character/Word to be replace</param>
+        /// <param name="replacement">Replace with. Default value is empty</param>
+        /// <param name="caseSensitive">Case sensitivity. Default value is false</param>
+        /// <returns></returns>
+        public async Task RemoveAsync(string pattern, string replacement = "", bool caseSensitive = false)
         {
-            if (string.IsNullOrEmpty(InputTextArea))
-                return;
-            OutputTextArea = InputTextArea.ToLower();
-            UpdatePersistency();
-        }
-
-        /// <summary>
-        /// Remove a specific word from the given word
-        /// </summary>
-        private void RemoveWord()
-        {
-            OutputTextArea = StringManipulate.Replace(InputTextArea, RemoveValue, string.Empty, IsCaseSensitive);
-            UpdatePersistency();
-        }
-
-        /// <summary>
-        /// Replace all occurance of the word from the given word
-        /// </summary>
-        private void ReplaceWord()
-        {
-            OutputTextArea = StringManipulate.Replace(InputTextArea, OldWord, NewWord, IsCaseSensitive);
+            OutputTextArea = await StringManipulate.Replace(_tempText, pattern, replacement, caseSensitive);
             UpdatePersistency();
         }
 
         /// <summary>
         /// Convert string into a array friendly format
         /// </summary>
-        private void ParseArray()
+        private async Task ParseArrayAsync()
         {
-            OutputTextArea = StringManipulate.ArrayFormat(InputTextArea, SelectedArrayType);
+            OutputTextArea = await StringManipulate.ArrayFormat(_tempText, SelectedArrayType);
             UpdatePersistency();
         }
 
@@ -475,8 +453,8 @@ namespace TextFormatterUI
         /// </summary>
         private void UpdatePersistency()
         {
-            if (IsPersistent && OutputTextArea != null) 
-                InputTextArea = OutputTextArea;
+            if (IsPersistent && OutputTextArea != null)
+                _tempText = OutputTextArea;
         }
 
         #endregion

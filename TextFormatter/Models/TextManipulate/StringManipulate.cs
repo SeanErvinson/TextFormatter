@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace StringManipulation
+namespace TextFormatter.Models.TextManipulate
 {
     public class StringManipulate
     {
@@ -33,7 +33,7 @@ namespace StringManipulation
         /// <param name="content">The text to format</param>
         /// <param name="type">The desired output type</param>
         /// <returns>Array friendly format</returns>
-        public static async Task<string> ArrayFormat(string content, ArrayType type)
+        public static async Task<string> ArrayFormat(string content, ArrayFormat type)
         {
             if (string.IsNullOrEmpty(content))
                 return null;
@@ -43,8 +43,8 @@ namespace StringManipulation
 
             var words = await Task.Run(() => Regex.Matches(content, pattern).Cast<Match>().Select(word => word.Value).ToArray());
 
-            if (type == ArrayType.String)
-                words = await Task.Run(() => words.Select(word => String.Format("\"{0}\"", word)).ToArray());                
+            if (type == TextManipulate.ArrayFormat.String)
+                words = await Task.Run(() => words.Select(word => string.Format("\"{0}\"", word)).ToArray());                
 
             modifiedWords = await Task.Run(() => String.Join(",", words));
             

@@ -60,6 +60,7 @@
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\Base\AsyncRelayCommand.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\Base\RelayCommand.cs" />
     <Compile Include="ViewModels\FormatterViewModel.cs" />
@@ -130,12 +131,10 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Resource Include="Resources\Fonts\OpenSans-Bold.ttf" />
-    <Resource Include="Resources\Fonts\OpenSans-ExtraBold.ttf" />
-    <Resource Include="Resources\Fonts\OpenSans-Italic.ttf" />
-    <Resource Include="Resources\Fonts\OpenSans-Light.ttf" />
-    <Resource Include="Resources\Fonts\OpenSans-Regular.ttf" />
-    <Resource Include="Resources\Fonts\OpenSans-SemiBold.ttf" />
+    <Resource Include="Fonts\OpenSans-Bold.ttf" />
+    <Resource Include="Fonts\OpenSans-ExtraBold.ttf" />
+    <Resource Include="Fonts\OpenSans-Light.ttf" />
+    <Resource Include="Fonts\OpenSans-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -150,16 +149,11 @@
     <Resource Include="Resources\Icons\save.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SocialMediaLinks\SocialMediaLinks.csproj">
-      <Project>{5ec81e7c-af8b-4d5f-853f-469cffa7c140}</Project>
-      <Name>SocialMediaLinks</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\StringManipulation\StringManipulation.csproj">
-      <Project>{16946c99-852f-4ee6-a4b1-1320f40d00da}</Project>
-      <Name>StringManipulation</Name>
+    <ProjectReference Include="..\TextFormatter\TextFormatter.csproj">
+      <Project>{c1ab91f3-a376-4457-a5ff-757c6a5c346b}</Project>
+      <Name>TextFormatter</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\Icons\mail.png" />
     <Resource Include="Resources\Icons\person.png" />

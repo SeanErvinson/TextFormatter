@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TextFormatterUI
+namespace TextFormatter.WPF
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

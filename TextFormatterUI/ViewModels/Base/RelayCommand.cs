@@ -1,22 +1,37 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace TextFormatterUI
+namespace TextFormatter.WPF.ViewModels.Base
 {
     class RelayCommand : ICommand
     {
-        private readonly Predicate<object> _verifyAction;
+        private readonly Func<object, bool> _verifyAction;
         private readonly Action<object> _methodAction;
-        
-        public RelayCommand(Action<object> execute)
+
+        public RelayCommand(Action execute) : this(execute, null) { }
+
+        public RelayCommand(Action<object> execute) : this(execute, null) { }
+
+        public RelayCommand(Action<object> execute, Func<object, bool> validation)
         {
-            _methodAction = execute ?? throw new ArgumentException("execute");
+            _methodAction = execute ?? throw new ArgumentNullException("_methodAction", "Command cannot be null.");
+            _verifyAction = validation;
         }
 
-        public RelayCommand(Action<object> execute, Predicate<object> validation)
-            : this(execute)
+        public RelayCommand(Action execute, Func<bool> validation)
         {
-            _verifyAction = validation;
+            if (execute == null)
+                throw new ArgumentNullException("_methodAction", "Command cannot be null.");
+
+            _methodAction = delegate {
+                execute();
+            };
+            if (validation != null)
+            {
+                _verifyAction = delegate {
+                    return validation();
+                };
+            }
         }
 
         public event EventHandler CanExecuteChanged

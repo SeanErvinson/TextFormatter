@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFormatterUI", "TextFormatterUI\TextFormatterUI.csproj", "{C1383850-16C1-41E8-96FA-5A2CA310B3A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFormatter.WPF", "TextFormatterUI\TextFormatter.WPF.csproj", "{C1383850-16C1-41E8-96FA-5A2CA310B3A9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StringManipulation", "StringManipulation\StringManipulation.csproj", "{16946C99-852F-4EE6-A4B1-1320F40D00DA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialMediaLinks", "SocialMediaLinks\SocialMediaLinks.csproj", "{5EC81E7C-AF8B-4D5F-853F-469CFFA7C140}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFormatter", "TextFormatter\TextFormatter.csproj", "{C1AB91F3-A376-4457-A5FF-757C6A5C346B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +17,10 @@ Global
 		{C1383850-16C1-41E8-96FA-5A2CA310B3A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1383850-16C1-41E8-96FA-5A2CA310B3A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1383850-16C1-41E8-96FA-5A2CA310B3A9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{16946C99-852F-4EE6-A4B1-1320F40D00DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{16946C99-852F-4EE6-A4B1-1320F40D00DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{16946C99-852F-4EE6-A4B1-1320F40D00DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{16946C99-852F-4EE6-A4B1-1320F40D00DA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5EC81E7C-AF8B-4D5F-853F-469CFFA7C140}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5EC81E7C-AF8B-4D5F-853F-469CFFA7C140}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5EC81E7C-AF8B-4D5F-853F-469CFFA7C140}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5EC81E7C-AF8B-4D5F-853F-469CFFA7C140}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1AB91F3-A376-4457-A5FF-757C6A5C346B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1AB91F3-A376-4457-A5FF-757C6A5C346B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1AB91F3-A376-4457-A5FF-757C6A5C346B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1AB91F3-A376-4457-A5FF-757C6A5C346B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

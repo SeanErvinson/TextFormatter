@@ -3,7 +3,8 @@
                     xmlns:local="clr-namespace:TextFormatterUI.Styles">
 
     <Style x:Key="Toggle" TargetType="{x:Type CheckBox}">
-        <Setter Property="FontFamily" Value="{StaticResource OpenSansRegular}"/>
+        <Setter Property="FontFamily" Value="{StaticResource OpenSans}"/>
+        <Setter Property="FontWeight" Value="Regular"/>
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="Foreground" Value="{StaticResource TextColorBrush}"/>
     </Style>
