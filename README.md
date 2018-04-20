@@ -27,7 +27,7 @@ Formatting unformatted text into a integer array friendly format
 
 # Author/s
 
-* **Sean Ong** - [SeanErvinson](https://github.com/SeanErvinson)
+* **ASean___** - [SeanErvinson](https://github.com/SeanErvinson)
 
 
 
