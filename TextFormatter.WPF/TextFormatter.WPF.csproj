@@ -104,6 +104,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\TabControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Texts.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -149,12 +153,6 @@
     <Resource Include="Resources\Icons\save.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TextFormatter\TextFormatter.csproj">
-      <Project>{c1ab91f3-a376-4457-a5ff-757c6a5c346b}</Project>
-      <Name>TextFormatter</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Icons\mail.png" />
     <Resource Include="Resources\Icons\person.png" />
   </ItemGroup>
@@ -163,6 +161,16 @@
     <Resource Include="Resources\Icons\github.png" />
     <Resource Include="Resources\Icons\linkedin.png" />
     <Resource Include="Resources\Icons\twitter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TextFormatter.Core\TextFormatter.Core.csproj">
+      <Project>{460EABA5-0294-41A6-B79B-5D59A8B46234}</Project>
+      <Name>TextFormatter.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextFormatter.Utilities\TextFormatter.Utilities.csproj">
+      <Project>{3142E6FC-0FDB-4745-A90A-BBAA4841702F}</Project>
+      <Name>TextFormatter.Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -30,21 +30,12 @@
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ColorAnimation Duration="0:0:0.1"
+                                        <ColorAnimation Duration="0:0:0.2"
                                           Storyboard.TargetProperty="Background.Color"
-                                          To="{StaticResource AlternativeTextColor}"/> 
+                                          To="{StaticResource AlternativeTextColor}" AutoReverse="True" RepeatBehavior="Forever"/> 
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
-                            <Trigger.ExitActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimation Duration="0:0:0.1"
-                                          Storyboard.TargetProperty="Background.Color"
-                                          To="Transparent"/>           
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.ExitActions>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BlueBrush}"/>

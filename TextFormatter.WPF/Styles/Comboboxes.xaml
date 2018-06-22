@@ -4,6 +4,7 @@
                     xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
 
     <Style x:Key="Dropdown" TargetType="{x:Type ComboBox}">
+        <Setter Property="MinWidth" Value="40"/>
         <Setter Property="BorderBrush" Value="{StaticResource BlueBrush}"/>
         <Setter Property="Background" Value="White"/>
         <Setter Property="FontFamily" Value="{StaticResource OpenSans}"/>

@@ -9,6 +9,9 @@
     <Color x:Key="Blue">#8AC0FF</Color>
     <SolidColorBrush x:Key="BlueBrush" Color="{StaticResource Blue}"/>
 
+    <Color x:Key="MidGrey">#d3d3d3</Color>
+    <SolidColorBrush x:Key="MidGreyBrush" Color="{StaticResource MidGrey}"/>
+
     <Color x:Key="Grey">#ECECEC</Color>
     <SolidColorBrush x:Key="GreyBrush" Color="{StaticResource Grey}"/>
 

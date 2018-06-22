@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TextFormatter.Models.TextManipulate
+namespace TextFormatter.Core.Models
 {
     [Flags]
     public enum LetterCase

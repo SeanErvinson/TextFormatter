@@ -1,5 +1,5 @@
 ﻿using System.Windows.Input;
-using TextFormatter.Models;
+using TextFormatter.Utilities;
 using TextFormatter.WPF.ViewModels.Base;
 
 namespace TextFormatter.WPF

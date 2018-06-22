@@ -46,72 +46,9 @@
 
         <!--Controls-->
         <Border Grid.Column="1" Style="{StaticResource FrameBorder}">
-            <StackPanel VerticalAlignment="Center">
-                <!--Remove Controls-->
-                <Border Style="{StaticResource ControlBorder}" Margin="0, 0, 0, 10">
-                    <StackPanel>
-                        <Button VerticalAlignment="Center" Content="Remove Space" 
-                                Style="{StaticResource MainButton}" 
-                                Command="{Binding RemoveSpacesCommand}"/>
-                        <Button VerticalAlignment="Center" Content="Remove Tab" 
-                                Style="{StaticResource MainButton}"
-                                Command="{Binding RemoveTabsCommand}"/>
-                        <Button VerticalAlignment="Center" Content="Remove Line Break" 
-                                Style="{StaticResource MainButton}"
-                                Command="{Binding RemoveLineBreaksCommand}"/>
-                        <DockPanel LastChildFill="True">
-                            <Button VerticalAlignment="Center" Content="Remove"
-                                    Style="{StaticResource MainButton}"
-                                    Command="{Binding RemoveWordCommand}"/>
-                            <TextBox Style="{StaticResource TextField}" Text="{Binding RemoveValue}"/>
-                        </DockPanel>
-                    </StackPanel>
-                </Border>
-                <Border Style="{StaticResource LineBorder}"/>
-
-                <!--Replace Controls-->
-                <Border Style="{StaticResource ControlBorder}">
-                    <StackPanel>
-                        <StackPanel Orientation="Vertical">
-                            <TextBox Style="{StaticResource TextField}" Text="{Binding OldWord}"/>
-                            <Button VerticalAlignment="Center" Content="Replace with" 
-                                    Style="{StaticResource MainButton}"
-                                    Command="{Binding ReplaceWordCommand}"/>
-                            <TextBox Style="{StaticResource TextField}" Text="{Binding NewWord}"/>
-                        </StackPanel>
-                    </StackPanel>
-                </Border>
-
-                <Border Style="{StaticResource LineBorder}"/>
-
-                <!--Text Manipulation-->
-                <Border Style="{StaticResource ControlBorder}">
-                    <StackPanel>
-                        <Button VerticalAlignment="Center" Content="ALL UPPER" 
-                                Style="{StaticResource MainButton}"
-                                Command="{Binding AllUpperCommand}"/>
-                        <Button VerticalAlignment="Center" Content="all lower" 
-                                Style="{StaticResource MainButton}"
-                                Command="{Binding AllLowerCommand}"/>
-                    </StackPanel>
-                </Border>
-
-                <!--Text to Array-->
-                <Border Style="{StaticResource ControlBorder}">
-                    <StackPanel>
-                        <DockPanel>
-                            <TextBlock Style="{StaticResource TextLabel}" DockPanel.Dock="Left" Text="To"/>
-                            <TextBlock Style="{StaticResource TextLabel}" DockPanel.Dock="Right" Text="Array"/>
-                            <ComboBox Style="{StaticResource Dropdown}" ItemsSource="{Binding ArrayTypeValues}" SelectedItem="{Binding SelectedArrayType}"/>
-                        </DockPanel>
-                        <Button VerticalAlignment="Center" Content="Parse" 
-                                Style="{StaticResource MainButton}"
-                                Command="{Binding ArrayParseCommand}"/>
-                    </StackPanel>
-                </Border>
-
+            <DockPanel>
                 <!--Misc Controls-->
-                <Border Style="{StaticResource ControlBorder}">
+                <Border Style="{StaticResource ControlBorder}" DockPanel.Dock="Bottom">
                     <StackPanel>
                         <CheckBox Style="{StaticResource Toggle}" 
                                   Content="Case Senstive" 
@@ -121,7 +58,101 @@
                                   IsChecked="{Binding IsPersistent}"/>
                     </StackPanel>
                 </Border>
-            </StackPanel>
+                <TabControl Style="{StaticResource MainTabControl}" DockPanel.Dock="Top">
+                    <!--First Page-->
+                    <TabItem Header="Page 1" Style="{StaticResource MainTabItem}">
+                        <StackPanel VerticalAlignment="Center">
+                            <!--Remove Controls-->
+                            <Border Style="{StaticResource ControlBorder}" Margin="0, 0, 0, 10">
+                                <StackPanel>
+                                    <Button VerticalAlignment="Center" Content="Remove Space" 
+                                Style="{StaticResource MainButton}" 
+                                Command="{Binding RemoveSpacesCommand}"/>
+                                    <Button VerticalAlignment="Center" Content="Remove Tab" 
+                                Style="{StaticResource MainButton}"
+                                Command="{Binding RemoveTabsCommand}"/>
+                                    <Button VerticalAlignment="Center" Content="Remove Line Break" 
+                                Style="{StaticResource MainButton}"
+                                Command="{Binding RemoveLineBreaksCommand}"/>
+                                    <DockPanel LastChildFill="True">
+                                        <Button VerticalAlignment="Center" Content="Remove"
+                                    Style="{StaticResource MainButton}"
+                                    Command="{Binding RemoveWordCommand}"/>
+                                        <TextBox Style="{StaticResource TextField}" Text="{Binding RemoveValue}"/>
+                                    </DockPanel>
+                                </StackPanel>
+                            </Border>
+                            <Border Style="{StaticResource LineBorder}"/>
+
+                            <!--Replace Controls-->
+                            <Border Style="{StaticResource ControlBorder}">
+                                <StackPanel>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBox Style="{StaticResource TextField}" Text="{Binding OldWord}"/>
+                                        <Button VerticalAlignment="Center" Content="Replace with" 
+                                    Style="{StaticResource MainButton}"
+                                    Command="{Binding ReplaceWordCommand}"/>
+                                        <TextBox Style="{StaticResource TextField}" Text="{Binding NewWord}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource LineBorder}"/>
+
+                            <!--Text Manipulation-->
+                            <Border Style="{StaticResource ControlBorder}">
+                                <StackPanel>
+                                    <Button VerticalAlignment="Center" Content="ALL UPPER" 
+                                Style="{StaticResource MainButton}"
+                                Command="{Binding AllUpperCommand}"/>
+                                    <Button VerticalAlignment="Center" Content="all lower" 
+                                Style="{StaticResource MainButton}"
+                                Command="{Binding AllLowerCommand}"/>
+                                </StackPanel>
+                            </Border>
+
+                            <!--Text to Array-->
+                            <Border Style="{StaticResource ControlBorder}">
+                                <StackPanel>
+                                    <DockPanel>
+                                        <TextBlock Style="{StaticResource TextLabel}" DockPanel.Dock="Left" Text="To"/>
+                                        <TextBlock Style="{StaticResource TextLabel}" DockPanel.Dock="Right" Text="Array"/>
+                                        <ComboBox Style="{StaticResource Dropdown}" ItemsSource="{Binding ArrayTypeValues}" SelectedItem="{Binding SelectedArrayType}"/>
+                                    </DockPanel>
+                                    <Button VerticalAlignment="Center" Content="Parse" 
+                                Style="{StaticResource MainButton}"
+                                Command="{Binding ArrayParseCommand}"/>
+                                </StackPanel>
+                            </Border>
+
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Page 2" Style="{StaticResource MainTabItem}">
+                        <!--Second Page-->
+                        <StackPanel>
+                            <Border Style="{StaticResource ControlBorder}">
+                                <StackPanel>
+                                    <StackPanel>
+                                        <DockPanel Margin="0, 0, 0, 5">
+                                            <TextBlock Style="{StaticResource TextLabel}" DockPanel.Dock="Left" Text="Insert"/>
+                                            <TextBlock Style="{StaticResource TextLabel}" DockPanel.Dock="Right" Text="to the"/>
+                                            <TextBox Style="{StaticResource TextField}" Text="{Binding InsertValue}"/>
+                                        </DockPanel>
+                                        <DockPanel>
+                                            <TextBlock Style="{StaticResource TextLabel}" DockPanel.Dock="Right" Text="of each line."/>
+                                            <ComboBox Style="{StaticResource Dropdown}" ItemsSource="{Binding InsertPositionValues}" SelectedItem="{Binding SelectedPosition}"/>
+                                        </DockPanel>
+                                    </StackPanel>
+                                    <Button VerticalAlignment="Center" Content="Insert" 
+                                Style="{StaticResource MainButton}"
+                                Command="{Binding InsertCommand}"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Style="{StaticResource LineBorder}"/>
+                        </StackPanel>
+                    </TabItem>
+                </TabControl>
+            </DockPanel>
         </Border>
 
         <!--Right TextField-->
@@ -149,7 +180,7 @@
                 <ItemsPanelTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="20" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
@@ -157,6 +188,9 @@
                     </Grid>
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="1">
+                <TextBlock Text="{Binding AffectedCharacter, StringFormat=No. of affected character: {0}}" Style="{StaticResource StatusText}"/>
+            </StatusBarItem>
             <StatusBarItem Grid.Column="2">
                 <Button Style="{StaticResource ImageButton}" Command="{Binding AboutCommand}" Width="22">
                     <Image Source="/Resources/Icons/person.png"/>
