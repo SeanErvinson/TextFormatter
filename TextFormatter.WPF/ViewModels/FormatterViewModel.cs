@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using log4net;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,6 +76,11 @@ namespace TextFormatter.WPF
         /// Temporary text container
         /// </summary>
         private string _tempText;
+
+        /// <summary>
+        /// Reference the class for logging
+        /// </summary>
+        private readonly ILog _logger = LogManager.GetLogger(typeof(FormatterViewModel));
 
         #endregion Private Properties
 
@@ -408,12 +414,9 @@ namespace TextFormatter.WPF
                 case LetterCase.Upper:
                     OutputTextArea = await Task.Run(() => _tempText.ToUpper());
                     break;
-
                 case LetterCase.Lower:
                     OutputTextArea = await Task.Run(() => _tempText.ToLower());
                     break;
-                default:
-                    throw new Exception("Unexpected Case");
             }
             AffectedCharacter = _tempText.Length - Regex.Matches(_tempText, @"\s|\d").Count;
             UpdatePersistency();

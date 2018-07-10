@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,8 @@ namespace TextFormatter.WPF
     {
         public MainWindow()
         {
+            log4net.GlobalContext.Properties["logFilePath"] = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), nameof(TextFormatter));
+            log4net.Config.XmlConfigurator.Configure();
             InitializeComponent();
             this.DataContext = new FormatterViewModel();
         }

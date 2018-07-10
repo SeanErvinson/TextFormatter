@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -9,6 +10,8 @@ namespace TextFormatter.Utilities
 {
     public static class StringHelper
     {
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(IOHelper));
+
         public static int AffectedCharacter { get; private set; }
 
         /// <summary>
@@ -22,21 +25,28 @@ namespace TextFormatter.Utilities
             if (string.IsNullOrEmpty(content))
                 return null;
 
-            var modifiedWords = String.Empty;
             const string pattern = @"\w+";
 
             var matches = Regex.Matches(content, pattern);
 
             AffectedCharacter = matches.Count;
 
-            var words = await Task.Run(() => matches.Cast<Match>().Select(word => word.Value).ToArray());
-
+            string[] words;
+            try
+            {
+                words = await Task.Run(() => matches.Cast<Match>().Select(word => word.Value).ToArray());
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"Content size = {content.Length}", ex);
+                throw;
+            }
             if (type == ArrayFormat.String)
-                words = await Task.Run(() => words.Select(word => string.Format("\"{0}\"", word)).ToArray());
+                words = await Task.Run(() => words.Select(word => $"\"{word}\"").ToArray());
             else if (type == ArrayFormat.Char)
-                words = await Task.Run(() => words.Select(word => string.Format("\'{0}\'", word)).ToArray());
+                words = await Task.Run(() => words.Select(word => $"\'{word}\'").ToArray());
+            var modifiedWords = await Task.Run(() => String.Join(",", words));
 
-            modifiedWords = await Task.Run(() => String.Join(",", words));
 
             return modifiedWords;
         }
@@ -63,7 +73,15 @@ namespace TextFormatter.Utilities
                     int index;
                     index = position == InsertPosition.Start ? 0 : word.Length;
 
-                    sb.AppendLine(word.Insert(index, value));
+                    try
+                    {
+                        sb.AppendLine(word.Insert(index, value));
+                    }
+                    catch (ArgumentOutOfRangeException ex)
+                    {
+                        _logger.Error($"Content length - {content.Length}", ex);
+                        throw;
+                    }
                 }
             });
             return sb.ToString();
