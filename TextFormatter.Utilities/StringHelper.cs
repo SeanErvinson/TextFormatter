@@ -99,14 +99,22 @@ namespace TextFormatter.Utilities
         {
             if (string.IsNullOrEmpty(content))
                 return null;
-            string literal = patternKey == "\\" ? literal = "\\" : "";
-            var pattern = $"({literal}{patternKey})";
+
+            // Handles the escape character for user input
+            var pattern = $"({Regex.Escape(patternKey)})";
             replacement = replacement ?? string.Empty;
-            AffectedCharacter = Regex.Matches(content, pattern).Count;
-            if (caseSensitive)
-                return await Task.Run(() => Regex.Replace(content, pattern, replacement));
-            else
+            try
+            {
+                AffectedCharacter = Regex.Matches(content, pattern).Count;
+                if (caseSensitive)
+                    return await Task.Run(() => Regex.Replace(content, pattern, replacement));
                 return await Task.Run(() => Regex.Replace(content, pattern, replacement, RegexOptions.IgnoreCase));
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.Error($"Error occured with \"{pattern}\" pattern ", ex);
+                throw;
+            }
         }
     }
 }
