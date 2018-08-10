@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFormatter.WPF", "TextFormatter.WPF\TextFormatter.WPF.csproj", "{C1383850-16C1-41E8-96FA-5A2CA310B3A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFormatter.Core", "TextFormatter.Core\TextFormatter.Core.csproj", "{460EABA5-0294-41A6-B79B-5D59A8B46234}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextFormatter.Utilities", "TextFormatter.Utilities\TextFormatter.Utilities.csproj", "{3142E6FC-0FDB-4745-A90A-BBAA4841702F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFormatter.Utilities", "TextFormatter.Utilities\TextFormatter.Utilities.csproj", "{3142E6FC-0FDB-4745-A90A-BBAA4841702F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFormatter.Test", "TextFormatter.Test\TextFormatter.Test.csproj", "{72C4262E-21F6-4219-B549-333A7740B03F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{C1383850-16C1-41E8-96FA-5A2CA310B3A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1383850-16C1-41E8-96FA-5A2CA310B3A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1383850-16C1-41E8-96FA-5A2CA310B3A9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{460EABA5-0294-41A6-B79B-5D59A8B46234}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{460EABA5-0294-41A6-B79B-5D59A8B46234}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{460EABA5-0294-41A6-B79B-5D59A8B46234}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{460EABA5-0294-41A6-B79B-5D59A8B46234}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3142E6FC-0FDB-4745-A90A-BBAA4841702F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3142E6FC-0FDB-4745-A90A-BBAA4841702F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3142E6FC-0FDB-4745-A90A-BBAA4841702F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3142E6FC-0FDB-4745-A90A-BBAA4841702F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72C4262E-21F6-4219-B549-333A7740B03F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72C4262E-21F6-4219-B549-333A7740B03F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72C4262E-21F6-4219-B549-333A7740B03F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72C4262E-21F6-4219-B549-333A7740B03F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

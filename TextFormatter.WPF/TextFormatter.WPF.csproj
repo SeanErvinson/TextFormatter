@@ -167,10 +167,6 @@
     <Resource Include="Resources\Icons\twitter.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TextFormatter.Core\TextFormatter.Core.csproj">
-      <Project>{460EABA5-0294-41A6-B79B-5D59A8B46234}</Project>
-      <Name>TextFormatter.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TextFormatter.Utilities\TextFormatter.Utilities.csproj">
       <Project>{3142E6FC-0FDB-4745-A90A-BBAA4841702F}</Project>
       <Name>TextFormatter.Utilities</Name>
