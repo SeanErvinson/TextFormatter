@@ -7,7 +7,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using TextFormatter.Core.Models;
 using TextFormatter.Utilities;
 using TextFormatter.WPF.ViewModels.Base;
 
@@ -341,7 +340,7 @@ namespace TextFormatter.WPF
         /// </summary>
         public ICommand RemoveLineBreaksCommand
         {
-            get { return _removeLineBreaksCommand ?? (_removeLineBreaksCommand = new AsyncRelayCommand(() => ReplaceAsync(@"\r\n?|\n"))); }
+            get { return _removeLineBreaksCommand ?? (_removeLineBreaksCommand = new AsyncRelayCommand(() => ReplaceAsync(@"\r\n?|\n", escapedCharacter : false))); }
         }
 
         /// <summary>
@@ -357,7 +356,7 @@ namespace TextFormatter.WPF
         /// </summary>
         public ICommand RemoveTabsCommand
         {
-            get { return _removeTabsCommand ?? (_removeTabsCommand = new AsyncRelayCommand(() => ReplaceAsync(@"\t"))); }
+            get { return _removeTabsCommand ?? (_removeTabsCommand = new AsyncRelayCommand(() => ReplaceAsync(@"\t", escapedCharacter: false))); }
         }
 
         /// <summary>
@@ -491,11 +490,11 @@ namespace TextFormatter.WPF
         /// <param name="replacement">Replace with. Default value is empty</param>
         /// <param name="caseSensitive">Case sensitivity. Default value is false</param>
         /// <returns></returns>
-        public async Task ReplaceAsync(string pattern, string replacement = "", bool caseSensitive = false)
+        public async Task ReplaceAsync(string pattern, string replacement = "", bool caseSensitive = false, bool escapedCharacter = true)
         {
             if (pattern == null || replacement == null)
                 return;
-            OutputTextArea = await StringHelper.ReplaceAsync(_tempText, pattern, replacement, caseSensitive);
+            OutputTextArea = await StringHelper.ReplaceAsync(_tempText, pattern, replacement, caseSensitive, escapedCharacter);
             AffectedCharacter = StringHelper.AffectedCharacter;
             UpdatePersistency();
         }
