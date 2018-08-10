@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using TextFormatter.Core.Models;
 
 namespace TextFormatter.Utilities
 {
     public static class StringHelper
     {
-        private static readonly ILog _logger = LogManager.GetLogger(typeof(IOHelper));
+        //private static readonly ILog _logger = LogManager.GetLogger(typeof(IOHelper));
 
         public static int AffectedCharacter { get; private set; }
 
@@ -38,7 +37,7 @@ namespace TextFormatter.Utilities
             }
             catch (Exception ex)
             {
-                _logger.Error($"Content size = {content.Length}", ex);
+                //_logger.Error($"Content size = {content.Length}", ex);
                 throw;
             }
             if (type == ArrayFormat.String)
@@ -79,7 +78,7 @@ namespace TextFormatter.Utilities
                     }
                     catch (ArgumentOutOfRangeException ex)
                     {
-                        _logger.Error($"Content length - {content.Length}", ex);
+                        //_logger.Error($"Content length - {content.Length}", ex);
                         throw;
                     }
                 }
@@ -95,13 +94,16 @@ namespace TextFormatter.Utilities
         /// <param name="replacement">The replacement string</param>
         /// <param name="caseSensitive">Case sensitivity</param>
         /// <returns>Replaced/Removed content</returns>
-        public static async Task<string> ReplaceAsync(string content, string patternKey, string replacement, bool caseSensitive = false)
+        public static async Task<string> ReplaceAsync(string content, string patternKey, string replacement, bool caseSensitive = false, bool escapedCharacter = true)
         {
             if (string.IsNullOrEmpty(content))
                 return null;
 
             // Handles the escape character for user input
             var pattern = $"({Regex.Escape(patternKey)})";
+            if (!escapedCharacter)
+                pattern = $"({patternKey})";
+
             replacement = replacement ?? string.Empty;
             try
             {
@@ -112,9 +114,29 @@ namespace TextFormatter.Utilities
             }
             catch (ArgumentException ex)
             {
-                _logger.Error($"Error occured with \"{pattern}\" pattern ", ex);
+                //_logger.Error($"Error occured with \"{pattern}\" pattern ", ex);
                 throw;
             }
         }
+    }
+
+    public enum InsertPosition
+    {
+        Start,
+        End
+    }
+
+    public enum ArrayFormat
+    {
+        String,
+        Integer,
+        Char
+    }
+
+    [Flags]
+    public enum LetterCase
+    {
+        Upper = 1 << 0,
+        Lower = 1 << 1
     }
 }
